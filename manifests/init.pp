@@ -31,6 +31,7 @@ class statsd (
   }
   service { "statsd":
     enable  => true,
+    ensure  => running,
     require => File["/etc/statsd/config.js"]
   }
 
