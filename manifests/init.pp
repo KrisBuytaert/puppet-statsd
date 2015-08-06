@@ -12,7 +12,7 @@
 #
 # [Remember: No empty lines between comments and class definition]
 class statsd (
-  $graphite_host = "localhost",
+  $graphite_host = 'localhost',
   $graphite_port = 2003,
   $statsd_port   = 8125
 ) {
@@ -20,19 +20,19 @@ class statsd (
   file { '/etc/statsd/config.js':
     ensure  => 'file',
     group   => '0',
-    mode    => '644',
+    mode    => '0644',
     owner   => '0',
-    content => template("statsd/config.js.erb"),
+    content => template('statsd/config.js.erb'),
     require => Package['statsd'],
   }
 
-  package {"statsd":
+  package {'statsd':
     ensure => present;
   }
-  service { "statsd":
-    enable  => true,
+  service { 'statsd':
     ensure  => running,
-    require => File["/etc/statsd/config.js"]
+    enable  => true,
+    require => File['/etc/statsd/config.js']
   }
 
 }
